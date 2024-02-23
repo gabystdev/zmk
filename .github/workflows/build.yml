@@ -69,11 +69,12 @@ jobs:
 
             let error = false;
 
-            for (const shieldArgs of buildShieldArgs) {
+            //for (const shieldArgs of buildShieldArgs) {
               try {
-                const output = execSync(`west build -s app -p -b ${{ matrix.board }} -- ${shieldArgs.shield ? '-DSHIELD="' + shieldArgs.shield + '"' : ''} ${shieldArgs['cmake-args'] || ''}`);
-
-                console.log(`::group::${{ matrix.board}} ${shieldArgs.shield} Build`)
+                //const output = execSync(`west build -s app -p -b ${{ matrix.board }} -- ${shieldArgs.shield ? '-DSHIELD="' + shieldArgs.shield + '"' : ''} ${shieldArgs['cmake-args'] || ''}`);
+                const output = execSync(`west build -s app -p -b nrfmicro_13 -- -DSHIELD=spaceball42`);
+                
+                //console.log(`::group::${{ matrix.board}} ${shieldArgs.shield} Build`)
                 console.log(output.toString());
 
                 const fileExtensions = ["hex", "uf2"];
@@ -87,18 +88,19 @@ jobs:
                     continueOnError: true
                 }
 
-                const cmakeName = shieldArgs['cmake-args'] ? '-' + (shieldArgs.nickname || shieldArgs['cmake-args'].split(' ').join('')) : '';
-                const artifactName = `${{ matrix.board }}${shieldArgs.shield ? '-' + shieldArgs.shield : ''}${cmakeName}-zmk`;
+                //const cmakeName = shieldArgs['cmake-args'] ? '-' + (shieldArgs.nickname || shieldArgs['cmake-args'].split(' ').join('')) : '';
+                const cmakeName = '';
+                const artifactName = `nrfmicro_spaceball42-zmk`;
 
                 await artifactClient.uploadArtifact(artifactName, files, rootDirectory, options);
               } catch (e) {
-                console.error(`::error::Failed to build or upload ${{ matrix.board }} ${shieldArgs.shield} ${shieldArgs['cmake-args']}`);
+                //console.error(`::error::Failed to build or upload ${{ matrix.board }} ${shieldArgs.shield} ${shieldArgs['cmake-args']}`);
                 console.error(e);
                 error = true;
               } finally {
                 console.log('::endgroup::');
               }
-            }
+            //}
 
             if (error) {
               throw new Error('Failed to build one or more configurations');
