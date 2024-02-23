@@ -1,0 +1,14 @@
+
+
+# Copyright (c) 2020 The ZMK Contributors
+# SPDX-License-Identifier: MIT
+
+if SPACEBALL42
+
+config ZMK_KEYBOARD_NAME
+	default "spaceball42"
+
+config ZMK_USB
+	default y
+
+endif

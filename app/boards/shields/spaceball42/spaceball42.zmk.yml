@@ -1,0 +1,8 @@
+file_format: "1"
+id: spaceball42
+name: SPACEBALL42
+type: shield
+url: https://github.com/gabystdev/zmk-sb42
+requires: [pro_micro]
+features:
+  - keys
