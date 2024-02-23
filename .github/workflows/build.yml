@@ -410,3 +410,4 @@ jobs:
             const ymlChanges = changedFiles.includes('.github/workflows/build.yml');
             return boardChanges.length < appChanges.length || ymlChanges ? 'true' : 'false';
           result-encoding: string
+          
